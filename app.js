@@ -16,7 +16,6 @@ app.use((req,res,next) => {
     next()
 });
 
-
 userModel.hasMany(borrowModel);
 bookModel.hasMany(borrowModel);
 borrowModel.belongsTo(userModel, {
@@ -41,4 +40,4 @@ sequelize.sync({ force: true })
 })
 .catch(err => {
         console.log("Database sync error:", err);
-    });
+});
