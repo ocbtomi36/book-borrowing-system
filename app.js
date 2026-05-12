@@ -6,7 +6,8 @@ const sequelize = require('./database/database');
 const userModel = require('./model/userModel');
 const bookModel = require('./model/bookModel');
 const borrowModel = require('./model/borrowModel');
-
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
 app.use(bodyParser.json());
 
 app.use((req,res,next) => {
@@ -15,6 +16,9 @@ app.use((req,res,next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next()
 });
+app.use('/auth',authRoutes);
+app.use('/users',userRoutes);
+
 
 userModel.hasMany(borrowModel);
 bookModel.hasMany(borrowModel);
