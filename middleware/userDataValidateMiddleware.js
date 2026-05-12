@@ -32,7 +32,29 @@ class UserDataValidateMiddleware {
         next();
     }
     */
-
+    static async loginUser(req,res,next){
+            const { email, password } = req.body;   
+            try{
+                const loadedUser = await User.findOne({
+                    where: {
+                        email: email
+                    }
+                });
+                if(loadedUser === null){
+                    return res.status(401).json({ message: 'There is no user with that email' })
+                }
+                const loadedPassword = loadedUser.password;
+                const isPasswordMatch = await bcrypt.compare(password,loadedPassword);
+                if(!isPasswordMatch){
+                    return res.status(401).json({ message: 'Wrong password' })
+                }
+                req.user = loadedUser;
+                next();
+            } catch (error) {
+                console.log(error);
+                res.status(500).json({ message: 'An login error occured'})
+            }
+        }
 
     static async checkPinNumber(req,res,next) {
         const { pin_number } = req.body;

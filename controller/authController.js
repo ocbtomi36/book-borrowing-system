@@ -24,7 +24,13 @@ exports.signup = async (req, res, next) => {
 
 exports.login = async(req,res,next) => {  
     try{
-    
+        const loadedUser = req.user;
+        console.log(loadedUser);
+        const token = jwt.sign({
+        email: loadedUser.email,
+        iduser: loadedUser.iduser,
+    }, 'somesupersecretsecret');
+    res.status(200).json({token: token, userId: loadedUser.iduser.toString()})
     } catch(error){
         console.log(error)
         res.status(500).json({message: 'An login error occured'})
