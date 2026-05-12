@@ -19,6 +19,13 @@ app.use((req,res,next) => {
 app.use('/auth',authRoutes);
 app.use('/users',userRoutes);
 
+app.use((error, req, res, next) => {
+
+    res.status(500).json({
+        message: error.message
+    });
+
+});
 
 userModel.hasMany(borrowModel);
 bookModel.hasMany(borrowModel);
