@@ -2,21 +2,12 @@ const User = require('../model/userModel');
 const bcrypt = require('bcryptjs');
 class UserDataValidateMiddleware {
 /*
-   static async checkCustomerId(req,res,next) {
-        const { iduser } = req.params;
-        const getUser = await User.getOneCustomerDataById(iduser);
-        if(getUser === null) {
-            return res.status(409).json({ message: 'There is no customer with that id'})
-        }
-        req.user = getUser;
-        next();
-    }
 
-    static async checkEmployeeId(req,res,next) {
-        const { iduser } = req.params;
-        const getUser = await User.getOneEmployeeDataById(iduser);
-        if(getUser === null) {
-            return res.status(409).json({ message: 'There is no employee with that id'})
+static async checkEmployeeId(req,res,next) {
+    const { iduser } = req.params;
+    const getUser = await User.getOneEmployeeDataById(iduser);
+    if(getUser === null) {
+        return res.status(409).json({ message: 'There is no employee with that id'})
         }
         req.user = getUser;
         next();
@@ -30,8 +21,17 @@ class UserDataValidateMiddleware {
         }
         req.user = getUser;
         next();
+        }
+        */
+   static async checkUserId(req,res,next) {
+        const { iduser } = req.params;
+        const loadedUser = await User.findByPk(iduser);
+        if(loadedUser === null) {
+            return res.status(404).json({ message: 'There is no customer with that id'})
+        }
+        req.user = loadedUser;
+        next();
     }
-    */
     static async loginUser(req,res,next){
             const { email, password } = req.body;
             try{
