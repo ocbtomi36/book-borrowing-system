@@ -1,5 +1,5 @@
 const User = require('../model/userModel');
-
+const bcrypt = require('bcryptjs');
 class UserDataValidateMiddleware {
 /*
    static async checkCustomerId(req,res,next) {
@@ -33,7 +33,7 @@ class UserDataValidateMiddleware {
     }
     */
     static async loginUser(req,res,next){
-            const { email, password } = req.body;   
+            const { email, password } = req.body;
             try{
                 const loadedUser = await User.findOne({
                     where: {

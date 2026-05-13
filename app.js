@@ -44,7 +44,7 @@ borrowModel.belongsTo(bookModel, {
 
 const port =  process.env.PORT;
 
-sequelize.sync({ force: true })
+sequelize.sync()
 .then(result => {
     //console.log(result);
     app.listen(port);
