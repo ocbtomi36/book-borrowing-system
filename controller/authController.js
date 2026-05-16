@@ -35,3 +35,13 @@ exports.login = async(req,res,next) => {
         res.status(500).json({message: 'An login error occured'})
     }
 }
+
+exports.modifyUser = async(req,res,next) => {
+    try{
+        
+    res.status(200).json({token: token, userId: loadedUser.id_user.toString()})
+    } catch(error){
+        console.log(error)
+        res.status(500).json({message: 'An login error occured'})
+    }
+}
