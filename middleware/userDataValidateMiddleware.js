@@ -6,7 +6,7 @@ class UserDataValidateMiddleware {
         const { iduser } = req.params;
         const loadedUser = await User.findByPk(iduser);
         if(loadedUser === null) {
-            return res.status(404).json({ message: 'There is no customer with that id'})
+            return res.status(404).json({ message: 'There is no user with that id'})
         }
         req.user = loadedUser;
         next();

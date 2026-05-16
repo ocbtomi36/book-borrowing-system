@@ -15,4 +15,4 @@ router.post('/login',body('email').trim().isEmail().normalizeEmail().withMessage
     body('password').trim().isLength({min:1,max:100}).withMessage('length of password is incorrect'),incommingDataResult,validateAllowedFields(login),UserDataValidateMiddleware.loginUser,authController.login);
 module.exports = router;
 
-router.put('/modify/:iduser',validateAllowedFields(insertUpdateUserFields),[userValidator] ,authController.modifyUser);
+router.put('/modify/:iduser',validateAllowedFields(insertUpdateUserFields),[userValidator],UserDataValidateMiddleware.checkUserId ,authController.modifyUser);
