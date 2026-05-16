@@ -1,28 +1,7 @@
 const User = require('../model/userModel');
 const bcrypt = require('bcryptjs');
 class UserDataValidateMiddleware {
-/*
 
-static async checkEmployeeId(req,res,next) {
-    const { iduser } = req.params;
-    const getUser = await User.getOneEmployeeDataById(iduser);
-    if(getUser === null) {
-        return res.status(409).json({ message: 'There is no employee with that id'})
-        }
-        req.user = getUser;
-        next();
-    }
-
-    static async checkEmployeeIdByIncommingUserId(req,res,next) {
-        const { users_iduser } = req.body;
-        const getUser = await User.getOneEmployeeDataById(users_iduser);
-        if(getUser === null) {
-            return res.status(409).json({ message: 'There is no employee with that id'})
-        }
-        req.user = getUser;
-        next();
-        }
-        */
    static async checkUserId(req,res,next) {
         const { iduser } = req.params;
         const loadedUser = await User.findByPk(iduser);
