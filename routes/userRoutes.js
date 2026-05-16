@@ -6,6 +6,6 @@ const userDataValidateMiddleware = require('../middleware/userDataValidateMiddle
 
 
 router.get('/users',userController.getAllUsers);
-router.get('/user/:iduser',userDataValidateMiddleware.checkUserId,userController.getOneUsers);
+router.get('/user/:iduser',userDataValidateMiddleware.checkUserId,userController.getOneUser);
 
 module.exports = router;

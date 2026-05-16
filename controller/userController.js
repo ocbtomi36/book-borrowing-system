@@ -13,10 +13,14 @@ exports.getAllUsers = async (req,res,next) => {
         res.status(500).json({message: error.message})
         }
 }
-exports.getOneUsers = async (req,res,next) => {
+exports.getOneUser = async (req,res,next) => {
     try {
         res.status(200).json({message: 'Querry success', data: req.user});
         } catch (error) {
         res.status(500).json({message: error.message})
         }
 }
+
+exports.updateUser = async (req,res,next) => {
+    
+} 

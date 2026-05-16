@@ -20,7 +20,7 @@ class BookDataValidateMiddleware {
                 title:title
             }
         })
-        if(loadedBook !== null) {
+        if(loadedBookByTitle !== null) {
             return res.status(409).json({message: 'This title already exist'})
         }
         next();

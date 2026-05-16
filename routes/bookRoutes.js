@@ -8,11 +8,11 @@ const bookDataValidateMiddleware = require('../middleware/bookDataValidateMiddle
 const { incommingDataResult } = require('../validators/validationResult');
 
 const insertUpdateBookFields = ["title"];
-
+/*
+*/
 router.get('/books',bookController.getAllBooks);
 router.get('/book/:idbook',bookDataValidateMiddleware.checkBookId,bookController.getOneBook);
 
-router.post('/books',validateAllowedFields(insertUpdateBookFields),[bookJsonValidator],validateAllowedFields,bookDataValidateMiddleware.isBookTitle,bookController.insertBook);
-router.put('/book/:idbook',validateAllowedFields(insertUpdateBookFields),[bookJsonValidator],validateAllowedFields,bookDataValidateMiddleware.checkBookId,bookController.updateBook);
-
+router.post('/books',validateAllowedFields(insertUpdateBookFields),[bookJsonValidator],incommingDataResult,bookDataValidateMiddleware.isBookTitle,bookController.insertBook);
+router.put('/book/:idbook',validateAllowedFields(insertUpdateBookFields),[bookJsonValidator],incommingDataResult,bookDataValidateMiddleware.checkBookId,bookController.updateBook);
 module.exports = router;
