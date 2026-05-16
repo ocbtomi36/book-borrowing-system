@@ -9,6 +9,7 @@ const borrowModel = require('./model/borrowModel');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const bookRoutes = require('./routes/bookRoutes');
+const borrowRoutes = require('./routes/borrowRoutes');
 app.use(bodyParser.json());
 
 app.use((req,res,next) => {
@@ -20,6 +21,7 @@ app.use((req,res,next) => {
 app.use('/auth',authRoutes);
 app.use('/users',userRoutes);
 app.use('/books',bookRoutes);
+app.use('/borrow',borrowRoutes);
 
 app.use((error, req, res, next) => {
 
