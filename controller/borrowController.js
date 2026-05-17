@@ -4,7 +4,6 @@ exports.insertBorrow = async (req,res,next) => {
     const userId = req.iduser;
     const borrowDate = Date.now();
     const {BookIdBook, due_date } = req.body;
-    console.log(BookIdBook);
     try {
         const insertBorrow = await Borrow.create({
             UserIdUser: userId,

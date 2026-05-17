@@ -5,7 +5,6 @@ exports.getAllBooks = async (req,res,next) => {
 
     try {
         const books = await Book.findAll();
-        console.log(books)
         if( books.length > 0) { 
             res.status(200).json({message: 'Querry success', data: books});
         } else { 
