@@ -8,8 +8,7 @@ const bookDataValidateMiddleware = require('../middleware/bookDataValidateMiddle
 const { incommingDataResult } = require('../validators/validationResult');
 
 const insertUpdateBookFields = ["title"];
-/*
-*/
+
 router.get('/books',bookController.getAllBooks);
 router.get('/book/:idbook',bookDataValidateMiddleware.checkBookId,bookController.getOneBook);
 

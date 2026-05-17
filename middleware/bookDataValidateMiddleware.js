@@ -4,7 +4,10 @@ const Book = require('../model/bookModel');
 class BookDataValidateMiddleware {
 
     static async checkBookId(req,res,next){
-        const { idbook } = req.params;
+        let { idbook } = req.params;
+        if(idbook === undefined) {
+            idbook = req.body.BookIdBook;
+        }
         const loadedBook = await Book.findByPk(idbook);
         if(loadedBook === null) {
             return res.status(409).json({message: 'There is no title with that id'})
