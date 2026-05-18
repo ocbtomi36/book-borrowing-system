@@ -26,10 +26,11 @@ exports.signup = async (req, res, next) => {
 exports.login = async(req,res,next) => {  
     try{
         const loadedUser = req.user;
+        const secretString = process.env.JWT_SECRET;
         const token = jwt.sign({
         email: loadedUser.email,
         id_user: loadedUser.id_user,
-    }, 'somesupersecretsecret');
+    }, secretString);
     res.status(200).json({token: token, userId: loadedUser.id_user.toString()})
     } catch(error){
         console.log(error)
