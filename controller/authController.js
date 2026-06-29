@@ -19,7 +19,7 @@ exports.signup = async (req, res, next) => {
             message: 'User created successfully', id: newUser.id_user});
 
     } catch (error) {
-        return res.status(500).json({ message: error.message });
+        return next(error);
     }
 }
 
@@ -33,8 +33,7 @@ exports.login = async(req,res,next) => {
     }, secretString);
     res.status(200).json({token: token, userId: loadedUser.id_user.toString()})
     } catch(error){
-        console.log(error)
-        res.status(500).json({message: 'An login error occured'})
+        return next(error);
     }
 }
 
@@ -56,13 +55,18 @@ exports.modifyUser = async(req,res,next) => {
         if(loadedUserByEmail !== null ) {
             const loadedId = loadedUserByEmail.dataValues.id_user.toString();
             if(loadedId !== paramId) {
-                return res.status(409).json({message: 'this email is already exist'})
+                const error = new Error('this email is already exist');
+                error.statusCode = 409;
+                next(error);
             }
         }
         if(loadadUserByPinNumber !== null ) {
             const loadedId = loadadUserByPinNumber.dataValues.id_user.toString();
             if(loadedId !== paramId) {
-                return res.status(409).json({message: 'this pin number is already exist'})
+
+                const error = new Error('this pin_number is already exist');
+                error.statusCode = 409;
+                next(error);
             }
         }
         await User.update({ given_name: given_name, family_name: family_name, pin_number: pin_number ,password: hashedPassword},{
@@ -72,7 +76,6 @@ exports.modifyUser = async(req,res,next) => {
         });
         return res.status(200).json({message: "Update is Successfull"});
     } catch(error){
-        console.log(error)
-        return res.status(500).json({message: 'An login error occured'})
+        return next(error);
     }
 }
