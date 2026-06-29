@@ -23,12 +23,20 @@ app.use('/users',userRoutes);
 app.use('/books',bookRoutes);
 app.use('/borrow',borrowRoutes);
 
+app.use((req,res,next) => {
+
+    const error = new Error('Route not found');
+    error.statusCode = 404;
+    next(error);
+})
+
+
 app.use((error, req, res, next) => {
 
-    res.status(500).json({
-        message: error.message
-    });
-
+    const status = error.statusCode || 500;
+    const message = error.message;
+    const data = error.data;
+    res.status(status).json({message: message, data: data})
 });
 userModel.hasMany(borrowModel);
 bookModel.hasMany(borrowModel);
