@@ -14,7 +14,7 @@ exports.insertBorrow = async (req,res,next) => {
         return res.status(201).json({
             message: 'Borrow created successfully'});
     } catch (error) {
-         return res.status(500).json({ message: error.message });
+         return next(error);
     }
 
 }
