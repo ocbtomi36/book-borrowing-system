@@ -11,17 +11,13 @@ exports.getAllBooks = async (req,res,next) => {
             res.status(200).json({message: 'There is no data in database'});
         }
     } catch (error) {
-        res.status(500).json({message: error.message})
+        return next(error)
     }
 }
 
 exports.getOneBook = async (req,res,next) => {
-    try {
         const book = req.book;
         return res.status(200).json({message: 'Querry success', data: book});
-    } catch (error) {
-        res.status(500).json({message: error.message})
-    }
 }
 exports.insertBook = async (req,res,next) => {
     const { title } = req.body;
@@ -29,9 +25,9 @@ exports.insertBook = async (req,res,next) => {
         const insertBook = await Book.create({
             title: title
         });
-        return res.status(201).json({ message: "Book title inserted successfully"});
+        return res.status(201).json({ message: "Book title inserted successfully", data: insertBook});
         } catch (error) {
-        res.status(500).json({message: error.message})
+            return next(error);
     }
 }
 exports.updateBook = async (req,res,next) => {
@@ -46,7 +42,10 @@ exports.updateBook = async (req,res,next) => {
         if(dbBookId !== null) {
             const { id_book } = dbBookId.dataValues;
             if(id_book.toString() !== paramBookId) {
-                return res.status(409).json({message: "Title must be unique"});
+
+                const error = new Error('Title must be uinique');
+                error.statusCode = 409;
+                next(error);
             } 
         }
         await Book.update({ title: title},{
@@ -56,6 +55,6 @@ exports.updateBook = async (req,res,next) => {
         });
         return res.status(201).json({ message: "Car updated successfully"});
     } catch (error) {
-        res.status(500).json({message: error.message})
+        return next(error);
     }
 }
