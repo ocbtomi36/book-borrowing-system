@@ -12,7 +12,7 @@ This is a node.js and express based REST API that serves as the backend for a bo
 
  * Node.js
  * Express.js
- * Sequelize
+ * Sequelize ORM
  * MySQL
  * JWT
  * Git
@@ -25,6 +25,11 @@ This is an independently developed project.
 
  * User authentication with login and registration
  * CRUD operations for each entity
+ * Data validation for incomming request
+ * User management
+ * Book management
+ * Database modelling with Sequelize
+
 
 ## 5. Necessary Environment Variables
     PORT
@@ -74,7 +79,7 @@ Go to your project terminal and run command:
     npm start
 ```
 
-By the first run this program creates a database. You need to create a user with password and use this project.
+By the first run this program creates a database. You need to create a user with password and email and use this project.
 
 
 ## 7.License
